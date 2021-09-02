@@ -3,6 +3,7 @@ package de.yy18.nettyserver.server.user;
 import lombok.NonNull;
 
 import java.net.Socket;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public final class UserManager {
         return userList.isEmpty();
     }
 
-    public String getUserConsoleBySocket(@NonNull final Socket socket) {
+    public String getUserConsoleBySocket(@NonNull final Socket socket) throws ParseException {
         for (User user : userList) {
             if(user.getInetSocketAddress().equals(socket.getRemoteSocketAddress())) return user.toConsole();
         }

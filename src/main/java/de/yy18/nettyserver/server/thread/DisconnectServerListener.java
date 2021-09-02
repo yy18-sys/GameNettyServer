@@ -1,9 +1,11 @@
 package de.yy18.nettyserver.server.thread;
 
 import de.yy18.nettyserver.server.user.UserManager;
+import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import java.net.Socket;
+import java.net.SocketException;
 
 public final class DisconnectServerListener implements Runnable, Listener{
 
@@ -41,9 +43,15 @@ public final class DisconnectServerListener implements Runnable, Listener{
     @Override
     public void run() {
         while (isRunning) {
-            if(!socket.isConnected()) {
-                socket.close();
-                System.out.println("[Server] Client quit - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
+            try {
+                if(socket.getInputStream().read() == -1) {
+                    System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
+                            +" ServerInfo] Client quit - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
+                    stop();
+                }
+            } catch (SocketException exception) {
+                System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
+                        +" ServerInfo] Client quit - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
                 stop();
             }
         }

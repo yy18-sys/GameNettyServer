@@ -1,6 +1,7 @@
 package de.yy18.nettyserver.server.thread;
 
 import de.yy18.nettyserver.server.user.User;
+import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -50,7 +51,7 @@ public final class ConnectServerListener implements Runnable, Listener {
 		while (isRunning) {
 			final Socket socket = serverSocket.accept();
 			final User user = new User(socket);
-			System.out.println("[Server] Client joined - " + user.toConsole());
+			System.out.println("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Client joined - " + user.toConsole());
 		}
 	}
 
