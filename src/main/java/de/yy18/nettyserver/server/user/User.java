@@ -7,9 +7,6 @@ import lombok.NonNull;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 public final class User {
@@ -31,7 +28,7 @@ public final class User {
     public String toConsole() throws ParseException {
 
         return "{[uuid]: "+uuid+", [ipv6address]: "+inetSocketAddress.getAddress()+", [port]: "
-                +inetSocketAddress.getPort()+", [date:time]: "+ DateParser.parseTime(timeConnected) +"}";
+                +inetSocketAddress.getPort()+", [connected]: "+ DateParser.parseDateTime(timeConnected) +"}";
     }
 
     public Socket getSocket() {

@@ -6,7 +6,7 @@ public final class ShutdownCommand implements Command{
 
     @Override
     public void executeCommand() {
-        System.out.println("test");
+        ServerBase.shutdownServer();
     }
 
 }

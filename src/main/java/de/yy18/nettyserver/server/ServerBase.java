@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server;
 
+import de.yy18.nettyserver.server.commandhandler.CommandHandler;
 import de.yy18.nettyserver.server.thread.ConnectServerListener;
 import de.yy18.nettyserver.server.thread.ListenerHandler;
 import de.yy18.nettyserver.server.util.DateParser;
@@ -13,11 +14,16 @@ public final class ServerBase {
 
     public static void main(String[] args) throws IOException {
         final Scanner scanner = new Scanner(System.in);
-        new ConnectServerListener(7999).start();
+        new ConnectServerListener(PORT).start();
         System.out.println("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Server started successfully!");
         while (scanner.hasNext()) {
-            
+            final String input = scanner.next();
+            CommandHandler.getINSTANCE().handleCommand(input);
         }
+        shutdownServer();
+    }
+
+    public static void shutdownServer() {
         ListenerHandler.getINSTANCE().stopAllHandler();
     }
 

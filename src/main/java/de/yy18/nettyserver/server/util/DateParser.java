@@ -9,8 +9,8 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateParser {
 
-    public static String parseDate(final long milliseconds) {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+    public static String parseDateTime(final long milliseconds) {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         return simpleDateFormat.format(new Date(milliseconds));
     }
 
