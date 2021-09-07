@@ -2,7 +2,9 @@ package de.yy18.nettyserver.server.user;
 
 import de.yy18.nettyserver.server.thread.DisconnectServerListener;
 import de.yy18.nettyserver.server.util.DateParser;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -12,6 +14,9 @@ import java.util.UUID;
 public final class User {
 
     private final UUID uuid = UUID.randomUUID();
+    @Getter
+    @Setter
+    private String userName = "Unknown_User";
     private final long timeConnected;
     private final Socket socket;
     private final InetSocketAddress inetSocketAddress;
