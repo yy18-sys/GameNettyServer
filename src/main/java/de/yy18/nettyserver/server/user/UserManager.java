@@ -2,6 +2,7 @@ package de.yy18.nettyserver.server.user;
 
 import lombok.NonNull;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -42,6 +43,16 @@ public final class UserManager {
 
     public <T> T[] toArray(T[] a) {
         return userList.toArray(a);
+    }
+
+    public void closeAllConnection() {
+        for (User user : userList) {
+           try {
+               user.getSocket().close();
+           } catch (IOException exception) {
+               exception.printStackTrace();
+           }
+        }
     }
 
 }

@@ -22,8 +22,8 @@ public final class ListenerHandler {
         threadRunnableList.add(threadRunnable);
     }
 
-    public boolean remove(@NonNull final Listener threadRunnable) {
-        return threadRunnableList.remove(threadRunnable);
+    public void remove(@NonNull final Listener threadRunnable) {
+        threadRunnableList.remove(threadRunnable);
     }
 
     public Iterator<Listener> iterator() {
@@ -31,7 +31,8 @@ public final class ListenerHandler {
     }
 
     public void stopAllHandler() {
-        for (Listener listener : this.threadRunnableList) {
+        if(this.threadRunnableList.isEmpty()) return;
+        for (Listener listener : threadRunnableList.stream().toList()) {
             listener.stop();
             this.threadRunnableList.remove(listener);
         }

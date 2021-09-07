@@ -4,6 +4,8 @@ import de.yy18.nettyserver.server.user.UserManager;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+
+import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -32,9 +34,16 @@ public final class DisconnectServerListener implements Runnable, Listener{
     @Override
     public Listener stop() {
         if(isRunning) {
+            isRunning = false;
+            if(socket.isConnected()) {
+                try {
+                    socket.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
             this.thread.stop();
             ListenerHandler.getINSTANCE().remove(this);
-            isRunning = false;
         }
         return this;
     }
@@ -46,7 +55,7 @@ public final class DisconnectServerListener implements Runnable, Listener{
             try {
                 if(socket.getInputStream().read() == -1) {
                     System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
-                            +" ServerInfo] Client quit - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
+                            +" ServerInfo] Client quit   - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
                     stop();
                 }
             } catch (SocketException exception) {

@@ -6,7 +6,11 @@ public final class ShutdownCommand implements Command{
 
     @Override
     public void executeCommand() {
-        ServerBase.shutdownServer();
+        try {
+            ServerBase.shutdownServer();
+        } catch (InterruptedException ignored) {
+
+        }
     }
 
 }
