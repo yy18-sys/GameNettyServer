@@ -55,7 +55,7 @@ public class InputStreamListener implements Runnable, Listener{
         System.out.println("Listening on client packets");
         while (isRunning) {
             System.out.println(Arrays.toString(socket.getInputStream().readAllBytes()));
-           /* final byte[] input = socket.getInputStream().readAllBytes();
+            final byte[] input = socket.getInputStream().readAllBytes();
             System.out.println("test successful");
             for (byte b : input) {
                 System.out.println(b);
@@ -72,8 +72,6 @@ public class InputStreamListener implements Runnable, Listener{
                     System.out.println("test successful2");
                 }
             }
-
-            */
         }
     }
 }
