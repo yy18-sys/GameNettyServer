@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server.thread;
 
+import de.yy18.nettyserver.server.packets.PacketType;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -45,6 +46,15 @@ public class InputStreamListener implements Runnable, Listener{
             final InputStream inputStream = socket.getInputStream();
             if(inputStream.read() != -1) {
                 final byte[] input = inputStream.readAllBytes();
+                for (byte b : input) {
+                    System.out.println(b);
+                }
+                final int packetType = input[0];
+                for (PacketType packet : PacketType.values()) {
+                    if(packetType == packet.ordinal()) {
+                        System.out.println("test successful");
+                    }
+                }
             }
         }
     }

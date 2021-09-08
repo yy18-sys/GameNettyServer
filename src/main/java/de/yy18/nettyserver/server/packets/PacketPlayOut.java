@@ -37,6 +37,7 @@ public abstract class PacketPlayOut extends Packet{
         writeValue(s.length());
         writeValue(s.getBytes(StandardCharsets.US_ASCII));
     }
+
     @NonNull
     private List<Byte> getByteList(byte[] bytes) {
         final List<Byte> byteList = new ArrayList<>();
