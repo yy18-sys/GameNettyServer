@@ -8,6 +8,8 @@ public abstract class PacketPlayOut extends Packet{
         super(packetType);
     }
 
+
+
     abstract void encodePacket();
 
 }
