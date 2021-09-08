@@ -2,47 +2,53 @@ package de.yy18.nettyserver.server.packets;
 
 import lombok.NonNull;
 
-import java.nio.charset.StandardCharsets;
-import java.util.*;
 
 public abstract class PacketPlayIn extends Packet{
 
-    private final List<Byte> content = new ArrayList<Byte>();
+    private final byte[] content;
+    private int readPos = 0;
 
-    PacketPlayIn(@NonNull PacketType packetType) {
+    PacketPlayIn(@NonNull PacketType packetType, final byte[] bytes) {
         super(packetType);
+        this.content = bytes;
     }
 
-    public void writeValue(byte[] bytes) {
-        content.addAll(getByteList(bytes));
+    public boolean readValue(boolean b) {
+        final byte[] clone = content.clone();
+        increase(1);
+        return clone[readPos] == 1;
     }
-    public void writeValue(boolean b) {
-        writeValue(b ? (byte)1 : (byte)0);
+    public short readValue(short s) {
+        final byte[] clone = content.clone();
+        final byte[] value = {clone[readPos], clone[readPos+1]};
+        increase(2);
+        return (short)(((value[0] & 0xFF) << 8) | (value[1] & 0xFF));
     }
-    public void writeValue(short s) {
-        writeValue(new byte[]{(byte)((s>>8)&0xFF),(byte)(s&0xFF)});
+
+    public int readValue(int i) {
+        final byte[] clone = content.clone();
+        final byte[] value = {clone[readPos], clone[readPos+1], clone[readPos+2], clone[readPos+3]};
+        increase(4);
+        return value[0] << 24 | (value[1] & 0xFF) << 16 | (value[2] & 0xFF) << 8 | (value[3] & 0xFF);
     }
-    public void writeValue(int i) {
-        writeValue(new byte[]{(byte)((i>>24)&0xFF),(byte)((i>>16)&0xFF),(byte)((i>>8)&0xFF),(byte)(i&0xFF)});
+    public long readValue(long l) {
+        final byte[] clone = content.clone();
+        final byte[] value = {clone[readPos], clone[readPos+1], clone[readPos+2], clone[readPos+3]
+                , clone[readPos+4], clone[readPos+5], clone[readPos+6], clone[readPos+7]};
+        increase(8);
+        return (long) value[0] << 56 | (value[1] & 0xFF) << 48 | (value[2] & 0xFF) << 40 | (value[3] & 0xFF) << 32| (value[4] & 0xFF) << 24
+                | (value[5] & 0xFF) << 16 | (value[6] & 0xFF) << 8 | (value[7] & 0xFF);
     }
-    public void writeValue(long l) {
-        writeValue(new byte[]{(byte)((l>>56)&0xFF),(byte)((l>>48)&0xFF),(byte)((l>>40)&0xFF),(byte)((l>>32)&0xFF)
-                ,(byte)((l>>24)&0xFF),(byte)((l>>16)&0xFF),(byte)((l>>8)&0xFF),(byte)(l&0xFF)});
-    }
-    public void writeValue(float f) {
+   /* public void readValue(float f) {
         writeValue(Float.floatToIntBits(f));
     }
-    public void writeValue(@NonNull String s) {
+    public void readValue(@NonNull String s) {
         writeValue(s.length());
-        writeValue(s.getBytes(StandardCharsets.UTF_8));
+        writeValue(s.getBytes(StandardCharsets.US_ASCII));
     }
-    @NonNull
-    private List<Byte> getByteList(byte[] bytes) {
-        final List<Byte> byteList = new ArrayList<>();
-        for (byte b: bytes) {
-            byteList.add(b);
-        }
-        return byteList;
+*/
+    private void increase(int i) {
+        this.readPos += i;
     }
 
     abstract void decodePacket();
