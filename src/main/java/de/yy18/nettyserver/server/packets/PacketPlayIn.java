@@ -3,13 +3,12 @@ package de.yy18.nettyserver.server.packets;
 import lombok.NonNull;
 
 
-public abstract class PacketPlayIn extends Packet{
+public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
 
     private final byte[] content;
     private int readPos = 0;
 
-    PacketPlayIn(@NonNull PacketType packetType, final byte[] bytes) {
-        super(packetType);
+    PacketPlayIn(final byte[] bytes) {
         this.content = bytes;
     }
 
@@ -63,7 +62,5 @@ public abstract class PacketPlayIn extends Packet{
     private void increase(int i) {
         this.readPos += i;
     }
-
-    abstract byte[] decodePacket();
 
 }

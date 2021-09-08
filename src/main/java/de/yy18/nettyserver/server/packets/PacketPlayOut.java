@@ -1,18 +1,16 @@
 package de.yy18.nettyserver.server.packets;
 
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PacketPlayOut extends Packet{
+@NoArgsConstructor
+public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
 
     private final List<Byte> content = new ArrayList<Byte>();
-
-    PacketPlayOut(@NonNull PacketType packetType) {
-        super(packetType);
-    }
 
     public void writeValue(byte[] bytes) {
         content.addAll(getByteList(bytes));
@@ -46,7 +44,5 @@ public abstract class PacketPlayOut extends Packet{
         }
         return byteList;
     }
-
-    abstract void encodePacket();
 
 }

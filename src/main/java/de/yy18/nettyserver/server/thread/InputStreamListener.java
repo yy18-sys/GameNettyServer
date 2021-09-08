@@ -1,10 +1,12 @@
 package de.yy18.nettyserver.server.thread;
 
+import de.yy18.nettyserver.server.packets.PacketPlayIn;
 import de.yy18.nettyserver.server.packets.PacketType;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.net.Socket;
 
 public class InputStreamListener implements Runnable, Listener{
@@ -42,6 +44,7 @@ public class InputStreamListener implements Runnable, Listener{
     @SneakyThrows
     @Override
     public void run() {
+        System.out.println("Listening on client packets");
         while (isRunning) {
             final InputStream inputStream = socket.getInputStream();
             if(inputStream.read() != -1) {
@@ -49,10 +52,15 @@ public class InputStreamListener implements Runnable, Listener{
                 for (byte b : input) {
                     System.out.println(b);
                 }
-                final int packetType = input[0];
-                for (PacketType packet : PacketType.values()) {
-                    if(packetType == packet.ordinal()) {
+                System.out.println(input.length);
+                final int packetTypeNumber = input[0];
+                System.out.println(packetTypeNumber);
+                for (PacketType packetType : PacketType.values()) {
+                    if(packetTypeNumber == packetType.ordinal()) {
                         System.out.println("test successful");
+                        Constructor<?> constructor = packetType.getAClass().getConstructors()[0];
+                        PacketPlayIn packet = (PacketPlayIn) constructor.newInstance(input);
+                        System.out.println("test successful2");
                     }
                 }
             }

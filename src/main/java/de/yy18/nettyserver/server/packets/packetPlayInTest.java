@@ -4,12 +4,13 @@ import lombok.NonNull;
 
 public class packetPlayInTest extends PacketPlayIn{
 
-    packetPlayInTest(@NonNull PacketType packetType, byte[] bytes) {
-        super(packetType, bytes);
+    packetPlayInTest(byte[] bytes) {
+        super(bytes);
     }
 
+
     @Override
-    byte[] decodePacket() {
+    public byte[] decodePacket() {
         return new byte[0];
     }
 
