@@ -4,6 +4,6 @@ public interface Listener {
 
     Listener start();
 
-    Listener stop();
+    void stop();
 
 }

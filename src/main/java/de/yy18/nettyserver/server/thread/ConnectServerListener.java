@@ -35,12 +35,11 @@ public final class ConnectServerListener implements Runnable, Listener {
 	}
 
 	@Override
-	public Listener stop() {
+	public void stop() {
 		if(isRunning) {
 			isRunning = false;
 			this.thread.stop();
 		}
-		return this;
 	}
 
 	@SneakyThrows

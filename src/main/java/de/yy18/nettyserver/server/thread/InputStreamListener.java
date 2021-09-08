@@ -1,6 +1,6 @@
 package de.yy18.nettyserver.server.thread;
 
-import de.yy18.nettyserver.server.packets.PacketPlayIn;
+import de.yy18.nettyserver.server.packets.IPacketPlayIn;
 import de.yy18.nettyserver.server.packets.PacketType;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -32,13 +32,12 @@ public class InputStreamListener implements Runnable, Listener{
     }
 
     @Override
-    public Listener stop() {
+    public void stop() {
         if(isRunning) {
             isRunning = false;
             this.thread.stop();
             ListenerHandler.getINSTANCE().remove(this);
         }
-        return this;
     }
 
     @SneakyThrows
@@ -59,7 +58,8 @@ public class InputStreamListener implements Runnable, Listener{
                     if(packetTypeNumber == packetType.ordinal()) {
                         System.out.println("test successful");
                         Constructor<?> constructor = packetType.getAClass().getConstructors()[0];
-                        PacketPlayIn packet = (PacketPlayIn) constructor.newInstance(input);
+                        IPacketPlayIn packet = (IPacketPlayIn) constructor.newInstance(input);
+                        packet.decodePacket(input);
                         System.out.println("test successful2");
                     }
                 }

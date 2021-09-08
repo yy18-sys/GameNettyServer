@@ -32,7 +32,7 @@ public final class DisconnectServerListener implements Runnable, Listener{
     }
 
     @Override
-    public Listener stop() {
+    public void stop() {
         if(isRunning) {
             isRunning = false;
             if(socket.isConnected()) {
@@ -45,7 +45,6 @@ public final class DisconnectServerListener implements Runnable, Listener{
             this.thread.stop();
             ListenerHandler.getINSTANCE().remove(this);
         }
-        return this;
     }
 
     @SneakyThrows

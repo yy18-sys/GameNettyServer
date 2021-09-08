@@ -1,8 +1,5 @@
 package de.yy18.nettyserver.server.packets;
 
-import lombok.NonNull;
-
-
 public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
 
     private final byte[] content;
