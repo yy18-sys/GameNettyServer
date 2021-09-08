@@ -5,9 +5,11 @@ import de.yy18.nettyserver.server.packets.PacketType;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class InputStreamListener implements Runnable, Listener{
 
@@ -35,6 +37,13 @@ public class InputStreamListener implements Runnable, Listener{
     public void stop() {
         if(isRunning) {
             isRunning = false;
+            if(socket.isConnected()) {
+                try {
+                    socket.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
             this.thread.stop();
             ListenerHandler.getINSTANCE().remove(this);
         }
@@ -45,25 +54,26 @@ public class InputStreamListener implements Runnable, Listener{
     public void run() {
         System.out.println("Listening on client packets");
         while (isRunning) {
-            final InputStream inputStream = socket.getInputStream();
-            if(inputStream.read() != -1) {
-                final byte[] input = inputStream.readAllBytes();
-                for (byte b : input) {
-                    System.out.println(b);
-                }
-                System.out.println(input.length);
-                final int packetTypeNumber = input[0];
-                System.out.println(packetTypeNumber);
-                for (PacketType packetType : PacketType.values()) {
-                    if(packetTypeNumber == packetType.ordinal()) {
-                        System.out.println("test successful");
-                        Constructor<?> constructor = packetType.getAClass().getConstructors()[0];
-                        IPacketPlayIn packet = (IPacketPlayIn) constructor.newInstance(input);
-                        packet.decodePacket(input);
-                        System.out.println("test successful2");
-                    }
+            System.out.println(Arrays.toString(socket.getInputStream().readAllBytes()));
+           /* final byte[] input = socket.getInputStream().readAllBytes();
+            System.out.println("test successful");
+            for (byte b : input) {
+                System.out.println(b);
+            }
+            System.out.println(input.length);
+            final int packetTypeNumber = input[0];
+            System.out.println(packetTypeNumber);
+            for (PacketType packetType : PacketType.values()) {
+                if(packetTypeNumber == packetType.ordinal()) {
+                    System.out.println("test successful");
+                    Constructor<?> constructor = packetType.getAClass().getConstructors()[0];
+                    IPacketPlayIn packet = (IPacketPlayIn) constructor.newInstance(input);
+                    packet.decodePacket(input);
+                    System.out.println("test successful2");
                 }
             }
+
+            */
         }
     }
 }

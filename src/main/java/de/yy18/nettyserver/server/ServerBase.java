@@ -6,9 +6,7 @@ import de.yy18.nettyserver.server.thread.ListenerHandler;
 import de.yy18.nettyserver.server.user.UserManager;
 import de.yy18.nettyserver.server.util.DateParser;
 
-import java.io.*;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Scanner;
 

@@ -35,13 +35,6 @@ public final class DisconnectServerListener implements Runnable, Listener{
     public void stop() {
         if(isRunning) {
             isRunning = false;
-            if(socket.isConnected()) {
-                try {
-                    socket.close();
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-            }
             this.thread.stop();
             ListenerHandler.getINSTANCE().remove(this);
         }
