@@ -7,7 +7,6 @@ import java.util.*;
 
 public abstract class PacketPlayIn extends Packet{
 
-
     private final List<Byte> content = new ArrayList<Byte>();
 
     PacketPlayIn(@NonNull PacketType packetType) {
@@ -33,10 +32,11 @@ public abstract class PacketPlayIn extends Packet{
     public void writeValue(float f) {
         writeValue(Float.floatToIntBits(f));
     }
-    public void writeValue(String s) {
+    public void writeValue(@NonNull String s) {
+        writeValue(s.length());
         writeValue(s.getBytes(StandardCharsets.UTF_8));
     }
-
+    @NonNull
     private List<Byte> getByteList(byte[] bytes) {
         final List<Byte> byteList = new ArrayList<>();
         for (byte b: bytes) {
@@ -44,7 +44,6 @@ public abstract class PacketPlayIn extends Packet{
         }
         return byteList;
     }
-
 
     abstract void decodePacket();
 
