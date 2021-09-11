@@ -46,10 +46,9 @@ public final class UserManagerCommand implements Command{
                                 return;
                             } else {
                                 UserManager.getINSTANCE().closeConnection(user);
-                                UserManager.getINSTANCE().remove(user);
                                 System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
                                         +" ServerInfo] User {[uuid]: "+user.getUuid()
-                                        +", [name]"+user.getUserName()+"} got disconnected");
+                                        +", [name]: "+user.getUserName()+"} got disconnected");
                             }
                         } catch (Exception exception) {
                             System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())

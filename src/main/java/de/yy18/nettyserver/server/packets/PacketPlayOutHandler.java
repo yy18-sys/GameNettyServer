@@ -13,7 +13,6 @@ import java.util.UUID;
 public final class PacketPlayOutHandler {
 
     public static synchronized void sendPacket(@NonNull final PacketPlayOut packet, @NonNull final User user) throws IOException {
-        assert user != null;
         final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(user.getSocket().getOutputStream());
         bufferedOutputStream.write(packet.encodePacket());
     }

@@ -80,7 +80,7 @@ public final class UserManager {
         return null;
     }
 
-    public User[] getUserByUUID(@NonNull final UUID[] uuids) {
+    public User[] getUsersByUUID(@NonNull final UUID[] uuids) {
         final List<User> userList = new ArrayList<>();
         for (UUID uuid : uuids) {
             for (User user: this.userList.stream().toList()) {
@@ -100,7 +100,7 @@ public final class UserManager {
         return userList.toArray(a);
     }
 
-    public void closeConnection(@NonNull final User user) throws IOException {
+    public void closeConnection(@NonNull final User user) throws IOException, ParseException {
         final Iterator<Listener> iterator = ListenerHandler.getINSTANCE().iterator();
         if(iterator.hasNext()) {
             final Listener listener = iterator.next();
@@ -109,6 +109,9 @@ public final class UserManager {
             }
         }
         user.getSocket().close();
+        this.userList.remove(user);
+        System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
+                +" ServerInfo] Client quit   - "+ user.toConsole());
     }
 
     public void closeAllConnection() {

@@ -1,6 +1,5 @@
 package de.yy18.nettyserver.server.user;
 
-import de.yy18.nettyserver.server.thread.DisconnectServerListener;
 import de.yy18.nettyserver.server.thread.InputStreamListener;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.Getter;
@@ -23,14 +22,12 @@ public final class User {
     private final long timeConnected;
     private final Socket socket;
     private final InetSocketAddress inetSocketAddress;
-    private final DisconnectServerListener communicationClientListener;
     private final InputStreamListener inputStreamListener;
 
     public User(@NonNull final Socket socket) throws IOException {
         this.socket = socket;
         this.timeConnected = System.currentTimeMillis();
         this.inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-        communicationClientListener = (DisconnectServerListener) new DisconnectServerListener(socket, this.uuid).start();
         inputStreamListener = (InputStreamListener) new InputStreamListener(socket, this.uuid).start();
         UserManager.getINSTANCE().add(this);
     }
@@ -47,10 +44,6 @@ public final class User {
 
     public InetSocketAddress getInetSocketAddress() {
         return inetSocketAddress;
-    }
-
-    public DisconnectServerListener getCommunicationClientListener() {
-        return communicationClientListener;
     }
 
     public InputStreamListener getInputStreamListener() {

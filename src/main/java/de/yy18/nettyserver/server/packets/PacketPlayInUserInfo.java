@@ -6,6 +6,7 @@ import lombok.NonNull;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.text.ParseException;
 
 public class PacketPlayInUserInfo extends PacketPlayIn{
 
@@ -25,14 +26,14 @@ public class PacketPlayInUserInfo extends PacketPlayIn{
             final User current = UserManager.getINSTANCE().getUserByInetSocketAddress(iNetSocketAddress);
             current.setUserName(name);
             UserManager.getINSTANCE().updateUser(iNetSocketAddress, current);
-            if(current.getUserName().equalsIgnoreCase("unknown")
-                    ||current.getUserName().contains(" ")) {
+            if(current.getUserName().equalsIgnoreCase("Unknown_User")
+                    ||current.getUserName().contains(" ")|| current.getUserName().equalsIgnoreCase(" ")) {
                 PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(false), current);
                 UserManager.getINSTANCE().closeConnection(current);
             } else {
                 PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(true), current);
             }
-        } catch (IOException ignored) {
+        } catch (IOException | ParseException ignored) {
         }
     }
 
