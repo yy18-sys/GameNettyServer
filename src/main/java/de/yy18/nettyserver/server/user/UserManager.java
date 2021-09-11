@@ -80,6 +80,18 @@ public final class UserManager {
         return null;
     }
 
+    public User[] getUserByUUID(@NonNull final UUID[] uuids) {
+        final List<User> userList = new ArrayList<>();
+        for (UUID uuid : uuids) {
+            for (User user: this.userList.stream().toList()) {
+                if(user.getUuid().equals(uuid)) {
+                    userList.add(user);
+                }
+            }
+        }
+        return userList.toArray(User[]::new);
+    }
+
     public boolean contains(@NonNull final User user) {
         return userList.contains(user);
     }

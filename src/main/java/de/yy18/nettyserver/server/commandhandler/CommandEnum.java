@@ -10,7 +10,8 @@ public enum CommandEnum {
 
     EXIT("exit", new ShutdownCommand()),
     INFO("info", new CommandInfoCommand()),
-    USER("usermanager", new UserManagerCommand());
+    UM("um", new UserManagerCommand()),
+    USERMANAGER("usermanager", new UserManagerCommand());
 
     private final String commandName;
     private final Command command;

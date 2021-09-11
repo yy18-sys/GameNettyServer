@@ -4,6 +4,7 @@ import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.user.UserManager;
 import lombok.NonNull;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class PacketPlayInUserInfo extends PacketPlayIn{
@@ -17,12 +18,22 @@ public class PacketPlayInUserInfo extends PacketPlayIn{
 
     @Override
     public void decodePacket() {
-        final short packetNumber = super.readShort();
-        final int length = super.readInt();
-        final String name = super.readString(length);
-        User current = UserManager.getINSTANCE().getUserByInetSocketAddress(iNetSocketAddress);
-        current.setUserName(name);
-        UserManager.getINSTANCE().updateUser(iNetSocketAddress, current);
+        try {
+            final short packetNumber = super.readShort();
+            final int length = super.readInt();
+            final String name = super.readString(length);
+            final User current = UserManager.getINSTANCE().getUserByInetSocketAddress(iNetSocketAddress);
+            current.setUserName(name);
+            UserManager.getINSTANCE().updateUser(iNetSocketAddress, current);
+            if(current.getUserName().equalsIgnoreCase("unknown")
+                    ||current.getUserName().contains(" ")) {
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(false), current);
+                UserManager.getINSTANCE().closeConnection(current);
+            } else {
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(true), current);
+            }
+        } catch (IOException ignored) {
+        }
     }
 
 }

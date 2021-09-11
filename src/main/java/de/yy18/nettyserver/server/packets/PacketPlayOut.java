@@ -35,6 +35,14 @@ public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
         writeValue(s.length());
         writeValue(s.getBytes(StandardCharsets.US_ASCII));
     }
+    public byte[] getContent() {
+        final List<Byte> byteList = this.content.stream().toList();
+        final byte[] contents = new byte[byteList.size()];
+        for (int i = 0; i < byteList.size(); i++) {
+            contents[i] = byteList.get(i);
+        }
+        return contents;
+    }
 
     @NonNull
     private List<Byte> getByteList(byte[] bytes) {
@@ -44,5 +52,6 @@ public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
         }
         return byteList;
     }
+
 
 }

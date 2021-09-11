@@ -62,9 +62,9 @@ public class InputStreamListener implements Runnable, Listener{
     @Override
     public synchronized void run() {
         while (isRunning) {
-            final BufferedInputStream inputS = new BufferedInputStream(socket.getInputStream());
+            final BufferedInputStream bufferedInputStream = new BufferedInputStream(socket.getInputStream());
             this.content = new byte[30];
-            while(inputS.read(content) != -1) {
+            while(bufferedInputStream.read(content) != -1) {
                 final int packetTypeNumber = readShort();
                 for (PacketType packetType : PacketType.values()) {
                     if(packetTypeNumber == packetType.ordinal()) {
