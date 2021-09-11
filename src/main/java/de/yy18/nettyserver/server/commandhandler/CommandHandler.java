@@ -3,6 +3,8 @@ package de.yy18.nettyserver.server.commandhandler;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.Arrays;
+
 @NoArgsConstructor
 public final class CommandHandler {
 
@@ -14,9 +16,11 @@ public final class CommandHandler {
 
     public void handleCommand(@NonNull final String command) {
         final String commandLC = command.toLowerCase();
+        final String[] commandArray = commandLC.split(" ");
+        if(commandArray.length == 0) return;
         for (CommandEnum commandEnum : CommandEnum.values()) {
-            if(commandEnum.getCommandName().compareTo(commandLC) == 0) {
-                commandEnum.getCommand().executeCommand();
+            if(commandEnum.getCommandName().compareTo(commandArray[0]) == 0) {
+                commandEnum.getCommand().executeCommand(commandArray);
                 return;
             }
         }

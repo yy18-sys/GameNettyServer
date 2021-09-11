@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.UUID;
 
 public final class ConnectServerListener implements Runnable, Listener {
 
+	private final UUID uuid = UUID.randomUUID();
 	private final ServerSocket serverSocket;
 	@Getter
 	private final Thread thread;
@@ -40,6 +42,11 @@ public final class ConnectServerListener implements Runnable, Listener {
 			isRunning = false;
 			this.thread.stop();
 		}
+	}
+
+	@Override
+	public UUID getUUID() {
+		return this.uuid;
 	}
 
 	@SneakyThrows

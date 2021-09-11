@@ -1,9 +1,11 @@
 package de.yy18.nettyserver.server.packets;
 
+import java.util.Arrays;
+
 public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
 
-    private final byte[] content;
-    private int readPos = 0;
+    protected final byte[] content;
+    protected int readPos = 0;
 
     PacketPlayIn(final byte[] bytes) {
         this.content = bytes;
@@ -26,7 +28,7 @@ public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
         final byte[] clone = content.clone();
         final byte[] value = {clone[readPos], clone[readPos+1], clone[readPos+2], clone[readPos+3]};
         increase(4);
-        return value[0] << 24 | (value[1] & 0xFF) << 16 | (value[2] & 0xFF) << 8 | (value[3] & 0xFF);
+        return value[0] & 0xFF | (value[1] & 0xFF) << 8 | (value[2] & 0xFF) << 16 | value[3] << 24;
     }
 
     public long readLong() {
@@ -38,22 +40,15 @@ public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
                 | (value[5] & 0xFF) << 16 | (value[6] & 0xFF) << 8 | (value[7] & 0xFF);
     }
 
-   /* public void readFloat() {
+   /*
+    public void readFloat() {
         writeValue(Float.floatToIntBits(f));
     }
    */
-    public String readString() {
+    public String readString(int length) {
         final byte[] clone = content.clone();
-        final byte[] values = getByteStringArray(clone);
+        final byte[] values = Arrays.copyOfRange(clone, readPos , readPos+length);
         return new String(values, 0);
-    }
-
-    private byte[] getByteStringArray(byte[] bytes) {
-        final byte[] current = new byte[bytes.length-readPos];
-        for (int i = readPos; i < bytes.length; i++) {
-            current[i-readPos] = bytes[i];
-        }
-        return current;
     }
 
     private void increase(int i) {

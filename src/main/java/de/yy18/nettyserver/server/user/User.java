@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 public final class User {
 
+    @Getter
     private final UUID uuid = UUID.randomUUID();
     @Getter
     @Setter
@@ -24,18 +26,18 @@ public final class User {
     private final DisconnectServerListener communicationClientListener;
     private final InputStreamListener inputStreamListener;
 
-    public User(@NonNull final Socket socket) {
+    public User(@NonNull final Socket socket) throws IOException {
         this.socket = socket;
         this.timeConnected = System.currentTimeMillis();
         this.inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-        communicationClientListener = (DisconnectServerListener) new DisconnectServerListener(socket).start();
-        inputStreamListener = (InputStreamListener) new InputStreamListener(socket).start();
+        communicationClientListener = (DisconnectServerListener) new DisconnectServerListener(socket, this.uuid).start();
+        inputStreamListener = (InputStreamListener) new InputStreamListener(socket, this.uuid).start();
         UserManager.getINSTANCE().add(this);
     }
 
     public String toConsole() throws ParseException {
 
-        return "{[uuid]: "+uuid+", [ipv6address]: "+inetSocketAddress.getAddress()+", [port]: "
+        return "{[uuid]: "+uuid+", [name]: "+userName+", [ipv6address]: "+inetSocketAddress.getAddress()+", [port]: "
                 +inetSocketAddress.getPort()+", [connected]: "+ DateParser.parseDateTime(timeConnected) +"}";
     }
 

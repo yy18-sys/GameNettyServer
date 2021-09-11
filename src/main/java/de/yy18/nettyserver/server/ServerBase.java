@@ -21,7 +21,7 @@ public final class ServerBase {
         new ConnectServerListener(serverSocket).start();
         System.out.println("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Server started successfully!");
         while (scanner.hasNext()) {
-            final String input = scanner.next();
+            final String input = scanner.nextLine();
             CommandHandler.getINSTANCE().handleCommand(input);
         }
         shutdownServer();
@@ -35,7 +35,7 @@ public final class ServerBase {
             System.out.println("Error could close ServerSocket");
         }
         ListenerHandler.getINSTANCE().stopAllHandler();
-        Thread.sleep(1000);
+        Thread.sleep(100);
         System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] Server successfully closed!");
     }

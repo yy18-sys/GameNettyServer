@@ -4,7 +4,7 @@ import lombok.NonNull;
 
 public enum PacketType {
 
-    USERINFO(packetPlayInTest.class);
+    USERINFO(PacketPlayInUserInfo.class);
 
     private final Class<?> aClass;
 

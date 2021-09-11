@@ -3,12 +3,14 @@ package de.yy18.nettyserver.server.commandhandler;
 import de.yy18.nettyserver.server.commandhandler.command.Command;
 import de.yy18.nettyserver.server.commandhandler.command.CommandInfoCommand;
 import de.yy18.nettyserver.server.commandhandler.command.ShutdownCommand;
+import de.yy18.nettyserver.server.commandhandler.command.UserManagerCommand;
 import lombok.NonNull;
 
 public enum CommandEnum {
 
     EXIT("exit", new ShutdownCommand()),
-    INFO("info", new CommandInfoCommand());
+    INFO("info", new CommandInfoCommand()),
+    USER("usermanager", new UserManagerCommand());
 
     private final String commandName;
     private final Command command;

@@ -5,18 +5,19 @@ import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
-import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
+import java.util.UUID;
 
 public final class DisconnectServerListener implements Runnable, Listener{
 
     private final Socket socket;
+    private final UUID uuid;
     private final Thread thread;
     private boolean isRunning;
 
-    public DisconnectServerListener(@NonNull final Socket socket) {
+    public DisconnectServerListener(@NonNull final Socket socket, @NonNull final UUID uuid) {
         this.socket = socket;
+        this.uuid = uuid;
         this.thread = new Thread(this);
         isRunning = false;
     }
@@ -40,19 +41,18 @@ public final class DisconnectServerListener implements Runnable, Listener{
         }
     }
 
+    @Override
+    public UUID getUUID() {
+        return this.uuid;
+    }
+
     @SneakyThrows
     @Override
     public void run() {
         while (isRunning) {
-            try {
-                if(socket.getInputStream().read() == -1) {
-                    System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
-                            +" ServerInfo] Client quit   - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
-                    stop();
-                }
-            } catch (SocketException exception) {
+            if(socket.isClosed()) {
                 System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
-                        +" ServerInfo] Client quit - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
+                        +" ServerInfo] Client quit   - "+ UserManager.getINSTANCE().getUserConsoleBySocket(socket));
                 stop();
             }
         }
