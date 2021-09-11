@@ -6,7 +6,6 @@ import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.UUID;
 
 public final class UserManagerCommand implements Command{
