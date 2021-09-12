@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,6 +54,7 @@ public class InputStreamListener implements Runnable, Listener{
         this.content = new byte[30];
         try {
             while(bufferedInputStream.read(content) != -1) {
+                System.out.println(Arrays.toString(content));
                 final short packetTypeNumber = readShort();
                 System.out.println(packetTypeNumber);
                 for (PacketType packetType : PacketType.values()) {
