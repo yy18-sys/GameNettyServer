@@ -4,9 +4,9 @@ import de.yy18.nettyserver.server.ServerBase;
 import de.yy18.nettyserver.server.packets.PacketType;
 import lombok.NonNull;
 
-public final class PacketPlayOutChangeGameState extends PacketPlayOut{
+public final class PacketPlayOutEnemyJoinInfo extends PacketPlayOut{
 
-    public PacketPlayOutChangeGameState(@NonNull final PacketType packetType) {
+    public PacketPlayOutEnemyJoinInfo(@NonNull final PacketType packetType) {
         super(packetType);
     }
 

@@ -55,7 +55,7 @@ public class InputStreamListener implements Runnable, Listener{
             while(bufferedInputStream.read(content) != -1) {
                 final int packetTypeNumber = readShort();
                 for (PacketType packetType : PacketType.values()) {
-                    if(packetTypeNumber == packetType.ordinal()) {
+                    if(packetTypeNumber == packetType.getType()) {
                         final Constructor<?> constructor = packetType.getAClass().getConstructors()[0];
                         final IPacketPlayIn packet = (IPacketPlayIn) constructor.newInstance(content
                                 , socket.getRemoteSocketAddress());

@@ -7,7 +7,7 @@ public enum PacketType {
 
     INUSERINFO(PacketPlayInUserInfo.class,1),
     OUTACCEPTUSER(2),
-    OUTCHANGEGAMESTATE(PacketPlayInUserInfo.class,3);
+    OUTENEMYINFO(PacketPlayInUserInfo.class,4);
 
     private final Class<?> aClass;
     private final short type;

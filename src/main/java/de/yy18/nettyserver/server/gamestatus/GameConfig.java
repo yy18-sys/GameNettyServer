@@ -1,11 +1,6 @@
 package de.yy18.nettyserver.server.gamestatus;
 
-import de.yy18.nettyserver.server.packets.PacketPlayOutHandler;
-import de.yy18.nettyserver.server.packets.PacketType;
-import de.yy18.nettyserver.server.packets.out.PacketPlayOutChangeGameState;
 import lombok.Getter;
-
-import java.io.IOException;
 
 @Getter
 public final class GameConfig {
