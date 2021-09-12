@@ -19,7 +19,7 @@ public final class GameConfig {
     }
 
     public void nextGameState() {
-        if(this.gameState.ordinal()+1 < GameState.values().length) return;
+        if(this.gameState.ordinal()+1 >= GameState.values().length) return;
         this.gameState = GameState.values()[this.gameState.ordinal()+1];
     }
 
