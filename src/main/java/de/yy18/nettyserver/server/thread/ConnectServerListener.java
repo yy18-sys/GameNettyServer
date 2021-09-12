@@ -1,5 +1,7 @@
 package de.yy18.nettyserver.server.thread;
 
+import de.yy18.nettyserver.server.ServerBase;
+import de.yy18.nettyserver.server.gamestatus.GameState;
 import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.Getter;
@@ -54,9 +56,11 @@ public final class ConnectServerListener implements Runnable, Listener {
 	public void run() {
 		while (isRunning) {
 			try {
-				final Socket socket = serverSocket.accept();
-				final User user = new User(socket);
-				System.out.println("[" + DateParser.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
+				if(ServerBase.getGameConfig().getGameState() == GameState.STARTUP) {
+					final Socket socket = serverSocket.accept();
+					final User user = new User(socket);
+					System.out.println("[" + DateParser.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
+				}
 			} catch (SocketException ignored) {
 
 			}

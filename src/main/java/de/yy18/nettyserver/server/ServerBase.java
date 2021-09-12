@@ -1,10 +1,13 @@
 package de.yy18.nettyserver.server;
 
 import de.yy18.nettyserver.server.commandhandler.CommandHandler;
+import de.yy18.nettyserver.server.gamestatus.GameConfig;
+import de.yy18.nettyserver.server.gamestatus.GameState;
 import de.yy18.nettyserver.server.thread.ConnectServerListener;
 import de.yy18.nettyserver.server.thread.ListenerHandler;
 import de.yy18.nettyserver.server.user.UserManager;
 import de.yy18.nettyserver.server.util.DateParser;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,8 +17,11 @@ public final class ServerBase {
 
     private static final int PORT = 7999;
     private static ServerSocket serverSocket;
+    @Getter
+    private static GameConfig gameConfig;
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        gameConfig = new GameConfig(6);
         final Scanner scanner = new Scanner(System.in);
         serverSocket = new ServerSocket(PORT);
         new ConnectServerListener(serverSocket).start();

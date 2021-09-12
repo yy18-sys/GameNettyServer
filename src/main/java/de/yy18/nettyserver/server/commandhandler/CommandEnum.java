@@ -1,9 +1,6 @@
 package de.yy18.nettyserver.server.commandhandler;
 
-import de.yy18.nettyserver.server.commandhandler.command.Command;
-import de.yy18.nettyserver.server.commandhandler.command.CommandInfoCommand;
-import de.yy18.nettyserver.server.commandhandler.command.ShutdownCommand;
-import de.yy18.nettyserver.server.commandhandler.command.UserManagerCommand;
+import de.yy18.nettyserver.server.commandhandler.command.*;
 import lombok.NonNull;
 
 public enum CommandEnum {
@@ -11,7 +8,9 @@ public enum CommandEnum {
     EXIT("exit", new ShutdownCommand()),
     INFO("info", new CommandInfoCommand()),
     UM("um", new UserManagerCommand()),
-    USERMANAGER("usermanager", new UserManagerCommand());
+    USERMANAGER("usermanager", new UserManagerCommand()),
+    NS("ns", new ChangeGameStateCommand()),
+    NEXTSTATE("nextstate", new ChangeGameStateCommand());
 
     private final String commandName;
     private final Command command;

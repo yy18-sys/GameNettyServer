@@ -1,4 +1,6 @@
-package de.yy18.nettyserver.server.packets;
+package de.yy18.nettyserver.server.packets.in;
+
+import de.yy18.nettyserver.server.packets.Packet;
 
 import java.util.Arrays;
 

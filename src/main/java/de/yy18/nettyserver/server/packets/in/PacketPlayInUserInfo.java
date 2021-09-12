@@ -1,5 +1,8 @@
-package de.yy18.nettyserver.server.packets;
+package de.yy18.nettyserver.server.packets.in;
 
+import de.yy18.nettyserver.server.packets.PacketPlayOutHandler;
+import de.yy18.nettyserver.server.packets.PacketType;
+import de.yy18.nettyserver.server.packets.out.PacketPlayOutUserInfoResponse;
 import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.user.UserManager;
 import lombok.NonNull;
@@ -8,7 +11,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.text.ParseException;
 
-public class PacketPlayInUserInfo extends PacketPlayIn{
+public final class PacketPlayInUserInfo extends PacketPlayIn{
 
     private final InetSocketAddress iNetSocketAddress;
 
@@ -28,10 +31,10 @@ public class PacketPlayInUserInfo extends PacketPlayIn{
             UserManager.getINSTANCE().updateUser(iNetSocketAddress, current);
             if(current.getUserName().equalsIgnoreCase("Unknown_User")
                     ||current.getUserName().contains(" ")|| current.getUserName().equalsIgnoreCase(" ")) {
-                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(false), current);
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER, false), current);
                 UserManager.getINSTANCE().closeConnection(current);
             } else {
-                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(true), current);
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER, true), current);
             }
         } catch (IOException | ParseException ignored) {
         }

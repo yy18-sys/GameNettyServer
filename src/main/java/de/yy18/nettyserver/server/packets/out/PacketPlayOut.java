@@ -1,16 +1,23 @@
-package de.yy18.nettyserver.server.packets;
+package de.yy18.nettyserver.server.packets.out;
 
-import lombok.NoArgsConstructor;
+import de.yy18.nettyserver.server.packets.Packet;
+import de.yy18.nettyserver.server.packets.PacketType;
+import lombok.Getter;
 import lombok.NonNull;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
 
     private final List<Byte> content = new ArrayList<Byte>();
+    @Getter
+    private final PacketType packetType;
+
+    public PacketPlayOut(@NonNull final PacketType packetType) {
+        this.packetType = packetType;
+    }
 
     public void writeValue(byte[] bytes) {
         content.addAll(getByteList(bytes));

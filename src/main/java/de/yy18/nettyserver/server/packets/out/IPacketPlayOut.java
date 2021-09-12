@@ -1,4 +1,4 @@
-package de.yy18.nettyserver.server.packets;
+package de.yy18.nettyserver.server.packets.out;
 
 public interface IPacketPlayOut {
 
