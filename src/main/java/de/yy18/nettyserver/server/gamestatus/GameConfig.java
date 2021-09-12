@@ -18,10 +18,9 @@ public final class GameConfig {
         this.maxPlayer = maxPlayer;
     }
 
-    public void nextGameState() throws IOException {
+    public void nextGameState() {
         if(this.gameState.ordinal()+1 < GameState.values().length) return;
         this.gameState = GameState.values()[this.gameState.ordinal()+1];
-        PacketPlayOutHandler.sendAllPacket(new PacketPlayOutChangeGameState(PacketType.OUTCHANGEGAMESTATE));
     }
 
 }

@@ -9,8 +9,8 @@ public final class CommandInfoCommand implements Command {
     public void executeCommand(@NotNull final String[] strings) {
         System.out.println("[" + DateParser.parseTime(System.currentTimeMillis()) + " ServerInfo] Command info:");
         System.out.println("                      exit - shutdown the server");
-        System.out.println("                      gameconfig - outputs the gameconfig data");
-        System.out.println("                      exit - shutdown the server");
+        System.out.println("                      um / usermanager - open usermanager options");
+        System.out.println("                      ns  / nextstate - shutdown the server");
         System.out.println("                      gameconfig - outputs the gameconfig data");
     }
 
