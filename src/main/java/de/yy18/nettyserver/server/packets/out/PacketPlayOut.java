@@ -26,17 +26,17 @@ public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
         writeValue(b ? (byte)1 : (byte)0);
     }
     public void writeValue(short s) {
-        writeValue(new byte[]{(byte)((s>>8)&0xFF),(byte)(s&0xFF)});
+        writeValue(new byte[]{(byte)(s&0xFF), (byte)((s>>8)&0xFF)});
     }
     public void writeValue(int i) {
-        writeValue(new byte[]{(byte)((i>>24)&0xFF),(byte)((i>>16)&0xFF),(byte)((i>>8)&0xFF),(byte)(i&0xFF)});
+        writeValue(new byte[]{(byte)(i&0xFF), (byte)((i>>8)&0xFF), (byte)((i>>16)&0xFF), (byte)((i>>24)&0xFF)});
     }
     public void writeValue(long l) {
-        writeValue(new byte[]{(byte)((l>>56)&0xFF),(byte)((l>>48)&0xFF),(byte)((l>>40)&0xFF),(byte)((l>>32)&0xFF)
-                ,(byte)((l>>24)&0xFF),(byte)((l>>16)&0xFF),(byte)((l>>8)&0xFF),(byte)(l&0xFF)});
+        writeValue(new byte[]{(byte)(l&0xFF), (byte)((l>>8)&0xFF), (byte)((l>>16)&0xFF), (byte)((l>>24)&0xFF)
+                , (byte)((l>>32)&0xFF), (byte)((l>>40)&0xFF), (byte)((l>>48)&0xFF), (byte)((l>>56)&0xFF)});
     }
     public void writeValue(float f) {
-        writeValue(Float.floatToIntBits(f));
+        writeValue(Float.floatToRawIntBits(f));
     }
     public void writeValue(@NonNull String s) {
         writeValue(s.length());
