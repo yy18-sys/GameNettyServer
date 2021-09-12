@@ -1,7 +1,5 @@
 package de.yy18.nettyserver.server.thread;
 
-import de.yy18.nettyserver.server.ServerBase;
-import de.yy18.nettyserver.server.gamestatus.GameState;
 import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.Getter;
