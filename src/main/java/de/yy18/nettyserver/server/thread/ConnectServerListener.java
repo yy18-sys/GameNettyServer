@@ -56,7 +56,7 @@ public final class ConnectServerListener implements Runnable, Listener {
 	public void run() {
 		while (isRunning) {
 			try {
-				if(ServerBase.getGameConfig().getGameState() == GameState.STARTUP) {
+				if(ServerBase.getGameConfig().getGameState() == GameState.WAITING) {
 					final Socket socket = serverSocket.accept();
 					final User user = new User(socket);
 					System.out.println("[" + DateParser.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
