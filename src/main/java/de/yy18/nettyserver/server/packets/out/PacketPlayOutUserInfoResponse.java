@@ -14,7 +14,7 @@ public final class PacketPlayOutUserInfoResponse extends PacketPlayOut {
 
     @Override
     public byte[] encodePacket() {
-        super.writeValue(getPacketType().getType());
+        super.writeValue((int)getPacketType().getType());
         super.writeValue(acceptUser);
         return super.getContent();
     }
