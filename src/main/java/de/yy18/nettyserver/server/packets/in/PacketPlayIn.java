@@ -38,15 +38,14 @@ public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
         final byte[] value = {clone[readPos], clone[readPos+1], clone[readPos+2], clone[readPos+3]
                 , clone[readPos+4], clone[readPos+5], clone[readPos+6], clone[readPos+7]};
         increase(8);
-        return (long) value[0] << 56 | (value[1] & 0xFF) << 48 | (value[2] & 0xFF) << 40 | (value[3] & 0xFF) << 32| (value[4] & 0xFF) << 24
-                | (value[5] & 0xFF) << 16 | (value[6] & 0xFF) << 8 | (value[7] & 0xFF);
+        return (long) value[0] & 0xFF | (value[1] & 0xFF) << 8 | (value[1] & 0xFF) << 16 | (long) (value[1] & 0xFF) << 24
+                | (long) (value[1] & 0xFF) << 32 | (long) (value[1] & 0xFF) << 40 | (long) (value[1] & 0xFF) << 48 | (long) (value[1] & 0xFF) << 56;
     }
 
-   /*
     public void readFloat() {
-        writeValue(Float.floatToIntBits(f));
+
     }
-   */
+
     public String readString(int length) {
         final byte[] clone = content.clone();
         final byte[] values = Arrays.copyOfRange(clone, readPos , readPos+length);
