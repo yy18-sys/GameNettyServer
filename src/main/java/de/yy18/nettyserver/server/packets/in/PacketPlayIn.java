@@ -23,7 +23,7 @@ public abstract class PacketPlayIn implements Packet, IPacketPlayIn{
         final byte[] clone = content.clone();
         final byte[] value = {clone[readPos], clone[readPos+1]};
         increase(2);
-        return (short)(((value[1] & 0xFF) | (value[0] & 0xFF) << 8));
+        return (short)((value[0] & 0xFF | (value[1] & 0xFF) << 8));
     }
 
     public int readInt() {

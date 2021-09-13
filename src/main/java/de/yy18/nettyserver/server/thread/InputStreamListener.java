@@ -80,7 +80,7 @@ public class InputStreamListener implements Runnable, Listener{
         final byte[] clone = content.clone();
         final byte[] value = {clone[readPos], clone[readPos+1]};
         increase(2);
-        return (short)(((value[0] & 0xFF) << 8) | (value[1] & 0xFF));
+        return (short)((value[0] & 0xFF | (value[1] & 0xFF) << 8));
     }
 
     private void increase(int i) {
