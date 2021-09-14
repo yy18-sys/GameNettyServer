@@ -63,8 +63,8 @@ public final class UserManager {
         this.userList.add(user);
     }
 
-    public User getUserByInetSocketAddress(@NonNull final InetSocketAddress iNetSocketAddress) {
-        for (User user: this.userList.stream().toList()) {
+    public synchronized User getUserByInetSocketAddress(@NonNull final InetSocketAddress iNetSocketAddress) {
+        for (User user: this.userList) {
             if(user.getInetSocketAddress().equals(iNetSocketAddress)) {
                 return user;
             }
@@ -72,8 +72,8 @@ public final class UserManager {
         throw new ServerException("Could find user");
     }
 
-    public User getUserByUUID(@NonNull final UUID uuid) {
-        for (User user: this.userList.stream().toList()) {
+    public synchronized User getUserByUUID(@NonNull final UUID uuid) {
+        for (User user: this.userList) {
             if(user.getUuid().equals(uuid)) {
                 return user;
             }
@@ -84,7 +84,7 @@ public final class UserManager {
     public User[] getUsersByUUID(@NonNull final UUID[] uuids) {
         final List<User> userList = new ArrayList<>();
         for (UUID uuid : uuids) {
-            for (User user: this.userList.stream().toList()) {
+            for (User user: this.userList) {
                 if(user.getUuid().equals(uuid)) {
                     userList.add(user);
                 }

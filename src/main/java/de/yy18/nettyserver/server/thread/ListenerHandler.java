@@ -30,9 +30,9 @@ public final class ListenerHandler {
         return threadRunnableList.iterator();
     }
 
-    public void stopAllHandler() {
+    public synchronized void stopAllHandler() {
         if(this.threadRunnableList.isEmpty()) return;
-        for (Listener listener : threadRunnableList.stream().toList()) {
+        for (Listener listener : threadRunnableList) {
             listener.stop();
             this.threadRunnableList.remove(listener);
         }
