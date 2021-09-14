@@ -10,11 +10,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-codec</artifactId>
-            <version>4.1.44.Final</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>LATEST</version>
@@ -61,6 +56,12 @@
             <id>yy18</id>
             <properties>
                 <plugin.output>C:\Users\Tim\Desktop</plugin.output>
+            </properties>
+        </profile>
+        <profile>
+            <id>MartunUp</id>
+            <properties>
+                <plugin.output>D:\Desktop</plugin.output>
             </properties>
         </profile>
     </profiles>

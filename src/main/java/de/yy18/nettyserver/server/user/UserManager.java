@@ -47,7 +47,7 @@ public final class UserManager {
 
     public String getAllUserConsole() throws ParseException {
         StringBuilder string = new StringBuilder();
-        final User[] users = this.userList.toArray(User[]::new);
+        final User[] users = this.userList.toArray(new User[0]);
         if(users.length == 0) return "["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] No user found";
         for (int i = 0; i < users.length; i++) {
@@ -90,7 +90,7 @@ public final class UserManager {
                 }
             }
         }
-        return userList.toArray(User[]::new);
+        return userList.toArray(new User[0]);
     }
 
     public boolean contains(@NonNull final User user) {

@@ -6,6 +6,7 @@ import de.yy18.nettyserver.server.gamestatus.GameState;
 import de.yy18.nettyserver.server.thread.ConnectServerListener;
 import de.yy18.nettyserver.server.thread.ListenerHandler;
 import de.yy18.nettyserver.server.user.UserManager;
+import de.yy18.nettyserver.server.util.ConsoleWriter;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.Getter;
 
@@ -26,22 +27,27 @@ public final class ServerBase {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         console = System.console();
+        if (ConsoleWriter.DEVCONSOLE) startServer();
         if(console == null && !GraphicsEnvironment.isHeadless()) {
             final String filename = ServerBase.class.getProtectionDomain().getCodeSource().getLocation().toString().substring(6);
+            System.out.println(filename);
             Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "cmd", "/k", "java -jar \"" + filename + "\""});
         } else {
-            gameConfig = new GameConfig(6);
-            final Scanner scanner = new Scanner(System.in);
-            serverSocket = new ServerSocket(PORT);
-            new ConnectServerListener(serverSocket).start();
-            console.writer()
-                    .println("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Server started successfully!");
-            while (scanner.hasNext()) {
-                final String input = scanner.nextLine();
-                CommandHandler.getINSTANCE().handleCommand(input);
-            }
-            shutdownServer();
+            startServer();
         }
+    }
+
+    private static void startServer() throws IOException, InterruptedException {
+        gameConfig = new GameConfig(6);
+        final Scanner scanner = new Scanner(System.in);
+        serverSocket = new ServerSocket(PORT);
+        new ConnectServerListener(serverSocket).start();
+        ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Server started successfully!");
+        while (scanner.hasNext()) {
+            final String input = scanner.nextLine();
+            CommandHandler.getINSTANCE().handleCommand(input);
+        }
+        shutdownServer();
     }
 
     public static void shutdownServer() throws InterruptedException {
@@ -49,11 +55,11 @@ public final class ServerBase {
         try {
             serverSocket.close();
         } catch (IOException exception) {
-            console.writer().println("Error could close ServerSocket");
+            ConsoleWriter.write("Error could close ServerSocket");
         }
         ListenerHandler.getINSTANCE().stopAllHandler();
         Thread.sleep(100);
-        console.writer().println("["+ DateParser.parseTime(System.currentTimeMillis())
+        ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] Server successfully closed!");
     }
 

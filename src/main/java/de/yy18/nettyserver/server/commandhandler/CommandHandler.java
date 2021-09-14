@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server.commandhandler;
 
+import de.yy18.nettyserver.server.util.ConsoleWriter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -24,7 +25,7 @@ public final class CommandHandler {
                 return;
             }
         }
-        System.out.println("ERROR - Command not found!");
+        ConsoleWriter.write("ERROR - Command not found!");
     }
 
 }
