@@ -14,7 +14,7 @@ import java.net.SocketException;
 import java.util.Objects;
 import java.util.UUID;
 
-public class InputStreamListener implements Runnable, Listener{
+public final class InputStreamListener implements Runnable, Listener{
 
     private final Socket socket;
     private final UUID uuid;

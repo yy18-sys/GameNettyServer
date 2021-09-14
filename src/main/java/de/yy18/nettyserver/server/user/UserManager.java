@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server.user;
 
+import de.yy18.nettyserver.server.ServerBase;
 import de.yy18.nettyserver.server.exception.ServerException;
 import de.yy18.nettyserver.server.thread.Listener;
 import de.yy18.nettyserver.server.thread.ListenerHandler;
@@ -110,7 +111,7 @@ public final class UserManager {
         }
         user.getSocket().close();
         this.userList.remove(user);
-        System.out.println("["+ DateParser.parseTime(System.currentTimeMillis())
+        ServerBase.getConsole().writer().println("["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] Client quit   - "+ user.toConsole());
     }
 
