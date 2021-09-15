@@ -2,7 +2,7 @@ package de.yy18.nettyserver.server.packets.in;
 
 import de.yy18.nettyserver.server.packets.PacketPlayOutHandler;
 import de.yy18.nettyserver.server.packets.PacketType;
-import de.yy18.nettyserver.server.packets.out.PacketPlayOutUserInfoResponse;
+import de.yy18.nettyserver.server.packets.out.userinfo.PacketPlayOutUserInfoResponse;
 import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.user.UserManager;
 import lombok.NonNull;

@@ -8,6 +8,7 @@ import lombok.NonNull;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -18,7 +19,11 @@ public final class PacketPlayOutHandler {
     }
 
     public static synchronized void sendPacket(@NonNull final PacketPlayOut packet, @NonNull final User user) throws IOException {
-        final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(user.getSocket().getOutputStream());
+       sendPacket(packet, user.getSocket());
+    }
+
+    public static synchronized void sendPacket(@NonNull final PacketPlayOut packet, @NonNull final Socket socket) throws IOException {
+        final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(socket.getOutputStream());
         bufferedOutputStream.write(packet.encodePacket());
         bufferedOutputStream.flush();
     }

@@ -1,6 +1,7 @@
-package de.yy18.nettyserver.server.packets.out;
+package de.yy18.nettyserver.server.packets.out.userinfo;
 
 import de.yy18.nettyserver.server.packets.PacketType;
+import de.yy18.nettyserver.server.packets.out.PacketPlayOut;
 import lombok.NonNull;
 
 public final class PacketPlayOutUserInfoResponse extends PacketPlayOut {
@@ -14,7 +15,6 @@ public final class PacketPlayOutUserInfoResponse extends PacketPlayOut {
 
     @Override
     public byte[] encodePacket() {
-        super.writeValue(getPacketType().getType());
         super.writeValue(acceptUser);
         return super.getContent();
     }

@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server.thread;
 
+import de.yy18.nettyserver.server.ServerBase;
 import de.yy18.nettyserver.server.packets.in.IPacketPlayIn;
 import de.yy18.nettyserver.server.packets.PacketType;
 import de.yy18.nettyserver.server.user.UserManager;
@@ -66,6 +67,7 @@ public final class InputStreamListener implements Runnable, Listener{
             }
             UserManager.getINSTANCE().closeConnection(Objects
                     .requireNonNull(UserManager.getINSTANCE().getUserByUUID(this.uuid)));
+            ServerBase.getGameConfig().removePlayer();
         } catch (SocketException ignored) {
 
         }

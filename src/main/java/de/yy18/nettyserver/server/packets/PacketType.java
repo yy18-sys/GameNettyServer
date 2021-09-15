@@ -7,17 +7,18 @@ public enum PacketType {
 
     INUSERINFO(PacketPlayInUserInfo.class,1),
     OUTACCEPTUSER(2),
-    OUTENEMYINFO(PacketPlayInUserInfo.class,4);
+    OUTDENYUSER(4),
+    OUTENEMYINFO(PacketPlayInUserInfo.class,6);
 
     private final Class<?> aClass;
     private final short type;
 
-    PacketType(int type) {
+    PacketType(final int type) {
         this.aClass = null;
         this.type = (short) type;
     }
 
-    PacketType(@NonNull final Class<?> aClass, int type) {
+    PacketType(@NonNull final Class<?> aClass, final int type) {
         this.aClass = aClass;
         this.type = (short) type;
     }

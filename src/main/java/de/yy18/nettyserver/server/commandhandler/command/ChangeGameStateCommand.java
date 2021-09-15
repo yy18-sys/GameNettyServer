@@ -3,7 +3,7 @@ package de.yy18.nettyserver.server.commandhandler.command;
 import de.yy18.nettyserver.server.ServerBase;
 import de.yy18.nettyserver.server.packets.PacketPlayOutHandler;
 import de.yy18.nettyserver.server.packets.PacketType;
-import de.yy18.nettyserver.server.packets.out.PacketPlayOutEnemyJoinInfo;
+import de.yy18.nettyserver.server.packets.out.enemyjoininfo.PacketPlayOutEnemyJoinInfo;
 import de.yy18.nettyserver.server.util.DateParser;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;

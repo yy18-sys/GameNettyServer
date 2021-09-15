@@ -12,11 +12,9 @@ import java.util.List;
 public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
 
     private final List<Byte> content = new ArrayList<Byte>();
-    @Getter
-    private final PacketType packetType;
 
     public PacketPlayOut(@NonNull final PacketType packetType) {
-        this.packetType = packetType;
+        this.writeValue(packetType.getType());
     }
 
     public void writeValue(byte[] bytes) {

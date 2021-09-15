@@ -1,6 +1,11 @@
 package de.yy18.nettyserver.server.thread;
 
 import de.yy18.nettyserver.server.ServerBase;
+import de.yy18.nettyserver.server.gamestatus.GameState;
+import de.yy18.nettyserver.server.packets.PacketPlayOutHandler;
+import de.yy18.nettyserver.server.packets.PacketType;
+import de.yy18.nettyserver.server.packets.out.closeconnection.CloseConnectionType;
+import de.yy18.nettyserver.server.packets.out.closeconnection.PacketPlayOutCloseConnection;
 import de.yy18.nettyserver.server.user.User;
 import de.yy18.nettyserver.server.util.ConsoleWriter;
 import de.yy18.nettyserver.server.util.DateParser;
@@ -56,12 +61,23 @@ public final class ConnectServerListener implements Runnable, Listener {
 	public void run() {
 		while (isRunning) {
 			try {
-				//if(ServerBase.getGameConfig().getGameState() == GameState.WAITING) {
-					final Socket socket = serverSocket.accept();
-					final User user = new User(socket);
-					ConsoleWriter.write("[" + DateParser
-							.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
-				//}
+				final Socket socket = serverSocket.accept();
+				if(ServerBase.getGameConfig().getGameState() == GameState.WAITING) {
+					if(!ServerBase.getGameConfig().isMaxReached()) {
+						final User user = new User(socket);
+						ServerBase.getGameConfig().addPlayer();
+						ConsoleWriter.write("[" + DateParser
+								.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
+					} else {
+						PacketPlayOutHandler.sendPacket(new PacketPlayOutCloseConnection(PacketType.OUTDENYUSER
+								, CloseConnectionType.CLOSE_FULL), socket);
+						socket.close();
+					}
+				} else {
+					PacketPlayOutHandler.sendPacket(new PacketPlayOutCloseConnection(PacketType.OUTDENYUSER
+							, CloseConnectionType.CLOSE_INGAME), socket);
+					socket.close();
+				}
 			} catch (SocketException ignored) {
 
 			}
