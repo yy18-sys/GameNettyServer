@@ -1,6 +1,6 @@
 package de.yy18.nettyserver.server.exception;
 
-public class ServerException extends RuntimeException {
+public final class ServerException extends RuntimeException {
 
     public ServerException() {
         super();
