@@ -43,6 +43,10 @@ public final class ServerBase {
         serverSocket = new ServerSocket(PORT);
         new ConnectServerListener(serverSocket).start();
         ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Server started successfully!");
+        ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] Current gamestate: "
+                + getGameConfig().getGameState().name());
+        ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis()) +" ServerInfo] To connect properly " +
+                "with a client, the server need to be in gamestate "+GameState.WAITING.name());
         while (scanner.hasNext()) {
             final String input = scanner.nextLine();
             CommandHandler.getINSTANCE().handleCommand(input);

@@ -8,6 +8,10 @@ public final class ConsoleWriter {
 
     public static final boolean DEVCONSOLE = false;
 
+    public static void write(final byte b) {
+        write(String.valueOf(b));
+    }
+
     public static void write(@NonNull final String message) {
         if (DEVCONSOLE) {
             writeSystem(message);

@@ -74,6 +74,7 @@ public final class ConnectServerListener implements Runnable, Listener {
 						socket.close();
 					}
 				} else {
+					Thread.sleep(100);
 					PacketPlayOutHandler.sendPacket(new PacketPlayOutCloseConnection(PacketType.OUTDENYUSER
 							, CloseConnectionType.CLOSE_INGAME), socket);
 					socket.close();

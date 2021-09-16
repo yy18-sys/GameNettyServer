@@ -8,7 +8,8 @@ public enum PacketType {
     INUSERINFO(PacketPlayInUserInfo.class,1),
     OUTACCEPTUSER(2),
     OUTDENYUSER(4),
-    OUTENEMYINFO(PacketPlayInUserInfo.class,6);
+    OUTENEMYINFO(PacketPlayInUserInfo.class,6),
+    OUTGAMESTART(8);
 
     private final Class<?> aClass;
     private final short type;

@@ -1,8 +1,8 @@
 package de.yy18.nettyserver.server.thread;
 
 import de.yy18.nettyserver.server.ServerBase;
-import de.yy18.nettyserver.server.packets.in.IPacketPlayIn;
 import de.yy18.nettyserver.server.packets.PacketType;
+import de.yy18.nettyserver.server.packets.in.IPacketPlayIn;
 import de.yy18.nettyserver.server.user.UserManager;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -19,6 +19,7 @@ public final class InputStreamListener implements Runnable, Listener{
 
     private final Socket socket;
     private final UUID uuid;
+    @NonNull
     private final Thread thread;
     private byte[] content;
     private int readPos = 0;
