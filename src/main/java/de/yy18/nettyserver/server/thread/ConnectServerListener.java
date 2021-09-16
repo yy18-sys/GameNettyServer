@@ -69,12 +69,13 @@ public final class ConnectServerListener implements Runnable, Listener {
 						ConsoleWriter.write("[" + DateParser
 								.parseTime(System.currentTimeMillis()) + " ServerInfo] Client joined - " + user.toConsole());
 					} else {
+						Thread.sleep(50);
 						PacketPlayOutHandler.sendPacket(new PacketPlayOutCloseConnection(PacketType.OUTDENYUSER
 								, CloseConnectionType.CLOSE_FULL), socket);
 						socket.close();
 					}
 				} else {
-					Thread.sleep(100);
+					Thread.sleep(50);
 					PacketPlayOutHandler.sendPacket(new PacketPlayOutCloseConnection(PacketType.OUTDENYUSER
 							, CloseConnectionType.CLOSE_INGAME), socket);
 					socket.close();
