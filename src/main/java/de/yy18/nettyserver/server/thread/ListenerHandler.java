@@ -1,5 +1,6 @@
 package de.yy18.nettyserver.server.thread;
 
+import de.yy18.nettyserver.server.util.ConsoleWriter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -34,8 +35,8 @@ public final class ListenerHandler {
         if(this.threadRunnableList.isEmpty()) return;
         for (Listener listener : threadRunnableList) {
             listener.stop();
-            this.threadRunnableList.remove(listener);
         }
+        this.threadRunnableList.clear();
     }
 
 }

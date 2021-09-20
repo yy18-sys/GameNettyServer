@@ -8,8 +8,8 @@ public final class PacketPlayOutCloseConnection extends PacketPlayOut {
 
     private final CloseConnectionType closeConnectionType;
 
-    public PacketPlayOutCloseConnection(@NonNull final PacketType packetType, @NonNull final CloseConnectionType closeConnectionType) {
-        super(packetType);
+    public PacketPlayOutCloseConnection(final short packetNumber, @NonNull final CloseConnectionType closeConnectionType) {
+        super(packetNumber);
         this.closeConnectionType = closeConnectionType;
     }
 

@@ -10,7 +10,9 @@ public enum CommandEnum {
     UM("um", new UserManagerCommand()),
     USERMANAGER("usermanager", new UserManagerCommand()),
     NS("ns", new ChangeGameStateCommand()),
-    NEXTSTATE("nextstate", new ChangeGameStateCommand());
+    NEXTSTATE("nextstate", new ChangeGameStateCommand()),
+    SEND("send", new PacketSendCommand()),
+    SENDPACKET("sendpacket", new PacketSendCommand());
 
     private final String commandName;
     private final Command command;

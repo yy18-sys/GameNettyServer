@@ -31,7 +31,7 @@ public final class ServerBase {
         if(console == null && !GraphicsEnvironment.isHeadless()) {
             final String filename = ServerBase.class.getProtectionDomain().getCodeSource().getLocation().toString().substring(6);
             System.out.println(filename);
-            Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "cmd", "/k", "java -jar \"" + filename + "\""});
+            Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "cmd", "/c", "java -jar \"" + filename + "\""});
         } else {
             startServer();
         }
@@ -65,6 +65,8 @@ public final class ServerBase {
         Thread.sleep(100);
         ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] Server successfully closed!");
+        Thread.sleep(1000);
+        System.exit(-1);
     }
 
     public static int getPORT() {

@@ -8,8 +8,8 @@ public final class PacketPlayOutUserInfoResponse extends PacketPlayOut {
 
     private final boolean acceptUser;
 
-    public PacketPlayOutUserInfoResponse(@NonNull final PacketType packetType, final boolean acceptUser) {
-        super(packetType);
+    public PacketPlayOutUserInfoResponse(final short packetNumber, final boolean acceptUser) {
+        super(packetNumber);
         this.acceptUser = acceptUser;
     }
 

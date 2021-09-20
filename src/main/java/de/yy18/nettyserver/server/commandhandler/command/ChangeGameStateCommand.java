@@ -16,7 +16,7 @@ public class ChangeGameStateCommand implements Command{
     public void executeCommand(@NotNull @NonNull String[] strings) {
         try {
             ServerBase.getGameConfig().nextGameState();
-            PacketPlayOutHandler.sendAllPacket(new PacketPlayOutEnemyJoinInfo(PacketType.OUTENEMYINFO));
+            PacketPlayOutHandler.sendAllPacket(new PacketPlayOutEnemyJoinInfo(PacketType.OUTENEMYINFO.getType()));
             System.out.println("[" + DateParser.parseTime(System.currentTimeMillis())
                     + " ServerInfo] Next gamestate initialized {"+ServerBase.getGameConfig().getGameState().name()+"}");
         } catch (IOException ignored) {

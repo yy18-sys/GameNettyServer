@@ -31,10 +31,10 @@ public final class PacketPlayInUserInfo extends PacketPlayIn{
             UserManager.getINSTANCE().updateUser(iNetSocketAddress, current);
             if(current.getUserName().equalsIgnoreCase("Unknown_User")
                     ||current.getUserName().contains(" ")|| current.getUserName().equalsIgnoreCase(" ")) {
-                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER, false), current);
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER.getType(), false), current);
                 UserManager.getINSTANCE().closeConnection(current);
             } else {
-                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER, true), current);
+                PacketPlayOutHandler.sendPacket(new PacketPlayOutUserInfoResponse(PacketType.OUTACCEPTUSER.getType(), true), current);
             }
         } catch (IOException | ParseException ignored) {
         }

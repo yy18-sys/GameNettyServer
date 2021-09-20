@@ -13,8 +13,8 @@ public abstract class PacketPlayOut implements Packet, IPacketPlayOut {
 
     private final List<Byte> content = new ArrayList<Byte>();
 
-    public PacketPlayOut(@NonNull final PacketType packetType) {
-        this.writeValue(packetType.getType());
+    public PacketPlayOut(final short packetNumber) {
+        this.writeValue(packetNumber);
     }
 
     public void writeValue(byte[] bytes) {
