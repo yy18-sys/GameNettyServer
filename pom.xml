@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.yy18</groupId>
-    <artifactId>GameNettyServer</artifactId>
+    <artifactId>GameSocketServer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -56,6 +56,12 @@
             <id>yy18</id>
             <properties>
                 <plugin.output>C:\Users\Tim\Desktop</plugin.output>
+            </properties>
+        </profile>
+        <profile>
+            <id>yy18Laptop</id>
+            <properties>
+                <plugin.output>C:\Users\timdi\Desktop</plugin.output>
             </properties>
         </profile>
         <profile>

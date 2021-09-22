@@ -65,7 +65,7 @@ public final class ServerBase {
         Thread.sleep(100);
         ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis())
                 +" ServerInfo] Server successfully closed!");
-        Thread.sleep(1000);
+        Thread.sleep(300);
         System.exit(-1);
     }
 
