@@ -73,4 +73,10 @@ public final class ServerBase {
         return PORT;
     }
 
+
+    /**
+     * TODO: Server hosten, von außen connecten
+     *
+     */
+
 }
