@@ -21,6 +21,8 @@ public final class CommandHandler {
         final String[] commandArray = commandLC.split(" ");
         if(commandArray.length == 0) return;
         for (CommandEnum commandEnum : CommandEnum.values()) {
+            ConsoleWriter.write(commandEnum.getCommandName());
+            ConsoleWriter.write(commandArray[0]);
             if(commandEnum.getCommandName().toLowerCase(Locale.ROOT).compareTo(commandArray[0].toLowerCase(Locale.ROOT)) == 0) {
                 commandEnum.getCommand().executeCommand(commandArray);
                 return;
