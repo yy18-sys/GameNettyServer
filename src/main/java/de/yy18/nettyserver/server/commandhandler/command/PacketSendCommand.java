@@ -31,6 +31,7 @@ public final class PacketSendCommand implements Command{
                     return;
                 }
                 final short packetTypeNumber = Short.parseShort(strings[2]);
+                ConsoleWriter.write(String.valueOf(packetTypeNumber));
                 if(packetTypeNumber % 2 != 0) return;
                 for (PacketType packetType : PacketType.values()) {
                     if(packetTypeNumber == packetType.getType()) {
@@ -65,7 +66,8 @@ public final class PacketSendCommand implements Command{
                         +" ServerInfo] Packet not found");
             } catch (Exception exception) {
                 ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis())
-                        +" ServerInfo] Command: send [uuid] [packetID] [attributes]");
+                        +" ServerInfo] Error by handling the packet" +
+                        " use: send [uuid] [packetID] [attributes]");
             }
         } else {
             ConsoleWriter.write("["+ DateParser.parseTime(System.currentTimeMillis())

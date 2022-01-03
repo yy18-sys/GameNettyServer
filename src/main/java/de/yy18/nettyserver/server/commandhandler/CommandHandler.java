@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 @NoArgsConstructor
 public final class CommandHandler {
@@ -20,7 +21,7 @@ public final class CommandHandler {
         final String[] commandArray = commandLC.split(" ");
         if(commandArray.length == 0) return;
         for (CommandEnum commandEnum : CommandEnum.values()) {
-            if(commandEnum.getCommandName().compareTo(commandArray[0]) == 0) {
+            if(commandEnum.getCommandName().toLowerCase(Locale.ROOT).compareTo(commandArray[0].toLowerCase(Locale.ROOT)) == 0) {
                 commandEnum.getCommand().executeCommand(commandArray);
                 return;
             }

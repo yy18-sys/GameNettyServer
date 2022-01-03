@@ -11,8 +11,7 @@ public enum CommandEnum {
     USERMANAGER("usermanager", new UserManagerCommand()),
     NS("ns", new ChangeGameStateCommand()),
     NEXTSTATE("nextstate", new ChangeGameStateCommand()),
-    SEND("send", new PacketSendCommand()),
-    SENDPACKET("sendpacket", new PacketSendCommand());
+    SEND("send", new PacketSendCommand());
 
     private final String commandName;
     private final Command command;
